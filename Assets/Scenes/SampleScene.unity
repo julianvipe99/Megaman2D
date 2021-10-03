@@ -567,29 +567,13 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 38418117, guid: 923d76e59df674d4da969aae5333ab1f, type: 3}
-      propertyPath: gun
-      value: 
-      objectReference: {fileID: 1533769318}
-    - target: {fileID: 38418117, guid: 923d76e59df674d4da969aae5333ab1f, type: 3}
-      propertyPath: laser
-      value: 
-      objectReference: {fileID: 2683195588094100397, guid: 5bf8a15740359b54781269fa5424f9b0, type: 3}
-    - target: {fileID: 38418117, guid: 923d76e59df674d4da969aae5333ab1f, type: 3}
-      propertyPath: speed
-      value: 8
-      objectReference: {fileID: 0}
-    - target: {fileID: 38418117, guid: 923d76e59df674d4da969aae5333ab1f, type: 3}
-      propertyPath: nextFire
-      value: 0.5
+    - target: {fileID: 778001583099470082, guid: 923d76e59df674d4da969aae5333ab1f, type: 3}
+      propertyPath: m_Enabled
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 5282402585993001541, guid: 923d76e59df674d4da969aae5333ab1f, type: 3}
       propertyPath: m_Name
       value: player
-      objectReference: {fileID: 0}
-    - target: {fileID: 5282402585993001541, guid: 923d76e59df674d4da969aae5333ab1f, type: 3}
-      propertyPath: m_TagString
-      value: Player
       objectReference: {fileID: 0}
     - target: {fileID: 5282402585993001593, guid: 923d76e59df674d4da969aae5333ab1f, type: 3}
       propertyPath: m_RootOrder
@@ -635,17 +619,8 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 5282402585993001595, guid: 923d76e59df674d4da969aae5333ab1f, type: 3}
-      propertyPath: m_GravityScale
-      value: 2.5
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 923d76e59df674d4da969aae5333ab1f, type: 3}
---- !u!1 &1533769318 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 4786478812685085827, guid: 923d76e59df674d4da969aae5333ab1f, type: 3}
-  m_PrefabInstance: {fileID: 1533769317}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1656251410
 GameObject:
   m_ObjectHideFlags: 0
