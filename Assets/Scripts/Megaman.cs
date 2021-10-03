@@ -10,20 +10,25 @@ public class Megaman : MonoBehaviour
     Animator myAnimator;
     Rigidbody2D myBody;
     BoxCollider2D myCollider;
+    AudioSource myAudioSource;
 
     [SerializeField] GameObject laser;
     [SerializeField] GameObject gun;
-
     bool sRight;
     bool sLeft;
     float canFire;
     [SerializeField] float nextFire=0.5f;
+
+    [SerializeField] AudioClip jumpSound;
+    [SerializeField] AudioClip landSound;
+    [SerializeField] AudioClip fireSound;
     // Start is called before the first frame update
     void Start()
     {
         myAnimator = GetComponent<Animator>();
         myBody = GetComponent<Rigidbody2D>();
         myCollider = GetComponent<BoxCollider2D>();
+        myAudioSource = GetComponent<AudioSource>();
 
         sRight = true;
         sLeft = false;
@@ -70,17 +75,22 @@ public class Megaman : MonoBehaviour
 
     void jump()
     {
-        if (isGrounded()&& !myAnimator.GetBool("jumping"))
+        if (isGrounded() && !myAnimator.GetBool("jumping"))
         {
             myAnimator.SetBool("falling", false);
             myAnimator.SetBool("jumping", false);
+            
             if (Input.GetKeyDown(KeyCode.Space))
             {
                 myAnimator.SetTrigger("takeOf");
                 myBody.AddForce(new Vector2(0, jumpSpeed), ForceMode2D.Impulse);
+                myAudioSource.PlayOneShot(jumpSound);
             }
+
         }
     }
+
+   
 
     void falling()
     {
@@ -88,10 +98,11 @@ public class Megaman : MonoBehaviour
             myAnimator.SetBool("falling", true);
     }
 
+
+
     bool isGrounded()
     {
         RaycastHit2D myRaycast = Physics2D.Raycast(myCollider.bounds.center, Vector2.down, myCollider.bounds.extents.y + 0.2f, LayerMask.GetMask("Ground"));
-
         return myRaycast.collider != null;
     }
 
@@ -116,8 +127,8 @@ public class Megaman : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.X) && Time.time >= canFire)
         {
-            
             Instantiate(laser, gun.transform.position , Quaternion.identity);
+            myAudioSource.PlayOneShot(fireSound);
             canFire = nextFire + Time.time;
         }
     }
