@@ -8,11 +8,13 @@ public class laser : MonoBehaviour
     [SerializeField] float speed = 1f;
     [SerializeField]bool right, left;
     Animator myAnimator;
+    Rigidbody2D myBody;
 
     // Start is called before the first frame update
     void Start()
     {
         myAnimator = GetComponent<Animator>();
+        myBody = GetComponent<Rigidbody2D>();
 
     }
 
@@ -25,9 +27,9 @@ public class laser : MonoBehaviour
     void direction(bool r, bool l)
     {
         if(r==true && l==false)
-            transform.Translate(Vector2.right * speed * Time.deltaTime);
+            myBody.velocity=Vector2.right * speed ;
         else
-            transform.Translate(Vector2.left * speed * Time.deltaTime);
+            myBody.velocity=Vector2.left * speed ;
 
     }
 
@@ -37,14 +39,20 @@ public class laser : MonoBehaviour
         left = l;
 
     }
+
+    IEnumerator laserImpact()
+    {
+        
+        myAnimator.SetTrigger("explode");
+        yield return new WaitForSeconds(0.3f);
+        Destroy(this.gameObject);
+    }
     private void OnCollisionEnter2D(Collision2D collision)
     {
 
         if (!collision.gameObject.CompareTag("Player"))
         {
-            transform.Translate(Vector2.zero*Time.deltaTime);
-            myAnimator.SetTrigger("explode");
-            Destroy(this.gameObject,0.5f);
+            StartCoroutine(laserImpact());
         }
 
         Debug.Log(collision);
