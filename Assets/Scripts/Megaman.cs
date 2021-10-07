@@ -17,6 +17,7 @@ public class Megaman : MonoBehaviour
     bool sRight;
     bool sLeft;
     float canFire;
+    bool doubleJump;
     [SerializeField] float nextFire=0.5f;
 
     [SerializeField] AudioClip jumpSound;
@@ -75,19 +76,38 @@ public class Megaman : MonoBehaviour
 
     void jump()
     {
-        if (isGrounded() && !myAnimator.GetBool("jumping"))
-        {
-            myAnimator.SetBool("falling", false);
-            myAnimator.SetBool("jumping", false);
-            
-            if (Input.GetKeyDown(KeyCode.Space))
-            {
-                myAnimator.SetTrigger("takeOf");
-                myBody.AddForce(new Vector2(0, jumpSpeed), ForceMode2D.Impulse);
-                myAudioSource.PlayOneShot(jumpSound);
-            }
+        
+        if ( !myAnimator.GetBool("jumping"))
 
-        }
+        {
+            
+            myAnimator.SetBool("jumping", false);
+            myAnimator.SetBool("falling", false);
+
+
+            if (Input.GetKeyDown(KeyCode.Space) && isGrounded())
+            {
+                doubleJump = true;
+                myAnimator.SetTrigger("takeOf");
+                myBody.velocity = new Vector2(myBody.velocity.x, jumpSpeed);
+                myAudioSource.PlayOneShot(jumpSound);
+
+            }
+            else
+            {
+                if (Input.GetKeyDown(KeyCode.Space))
+
+                {
+                    if (doubleJump)
+                    {
+                        
+                        myBody.AddForce(Vector2.up * jumpSpeed);
+                        myAudioSource.PlayOneShot(jumpSound);
+                        doubleJump = false;
+                    }
+                }
+            }
+        }     
     }
 
    
