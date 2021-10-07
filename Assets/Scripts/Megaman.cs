@@ -100,8 +100,9 @@ public class Megaman : MonoBehaviour
                 {
                     if (doubleJump)
                     {
-                        
-                        myBody.AddForce(Vector2.up * jumpSpeed);
+
+                        myBody.velocity = new Vector2(myBody.velocity.x, jumpSpeed);
+                        myAnimator.SetTrigger("takeOf");
                         myAudioSource.PlayOneShot(jumpSound);
                         doubleJump = false;
                     }
