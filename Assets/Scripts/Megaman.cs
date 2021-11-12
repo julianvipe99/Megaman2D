@@ -11,6 +11,7 @@ public class Megaman : MonoBehaviour
     Rigidbody2D myBody;
     BoxCollider2D myCollider;
     AudioSource myAudioSource;
+    [SerializeField] GameObject vfxDead;
 
     [SerializeField] GameObject laser;
     [SerializeField] GameObject gun;
@@ -21,8 +22,10 @@ public class Megaman : MonoBehaviour
     [SerializeField] float nextFire=0.5f;
 
     [SerializeField] AudioClip jumpSound;
-    [SerializeField] AudioClip landSound;
+    [SerializeField] AudioClip deadSound;
     [SerializeField] AudioClip fireSound;
+
+    bool pause;
     // Start is called before the first frame update
     void Start()
     {
@@ -33,16 +36,19 @@ public class Megaman : MonoBehaviour
 
         sRight = true;
         sLeft = false;
+        pause = false;
     }
 
     // Update is called once per frame
     void Update()
     {
-
-        move();
-        jump();
-        falling();
-        fire();
+        if (!pause)
+        {
+            move();
+            jump();
+            falling();
+            fire();
+        }
         
     }
 
@@ -89,6 +95,7 @@ public class Megaman : MonoBehaviour
             {
                 doubleJump = true;
                 myAnimator.SetTrigger("takeOf");
+                myAnimator.SetBool("jumping", true);
                 myBody.velocity = new Vector2(myBody.velocity.x, jumpSpeed);
                 myAudioSource.PlayOneShot(jumpSound);
 
@@ -152,5 +159,23 @@ public class Megaman : MonoBehaviour
             myAudioSource.PlayOneShot(fireSound);
             canFire = nextFire + Time.time;
         }
+    }
+
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+        if (collision.gameObject.CompareTag("Enemy"))
+        {
+            StartCoroutine("die");
+        }
+    }
+    IEnumerator die()
+    {
+        pause = true;
+        myBody.isKinematic=true;
+        myAnimator.SetBool("dead", true);
+        myAudioSource.PlayOneShot(deadSound);
+        yield return new WaitForSeconds(1);
+        Instantiate(vfxDead, transform.position, transform.rotation);
+        Destroy(this.gameObject);
     }
 }

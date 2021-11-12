@@ -42,7 +42,7 @@ public class laser : MonoBehaviour
 
     IEnumerator laserImpact()
     {
-        
+        speed = 0;
         myAnimator.SetTrigger("explode");
         yield return new WaitForSeconds(0.3f);
         Destroy(this.gameObject);
