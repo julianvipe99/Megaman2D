@@ -9,7 +9,6 @@ public class Enemy : MonoBehaviour
     [SerializeField] float range;
     [SerializeField] GameObject player;
     Level level;
-    Rigidbody2D myBody;
     AIDestinationSetter aiDestination;
 
     // Start is called before the first frame update
@@ -29,7 +28,6 @@ public class Enemy : MonoBehaviour
 
         if (Physics2D.OverlapCircle(transform.position, range, LayerMask.GetMask("Player")) != null)
         {
-            Debug.Log("ataca");
             aiDestination.target = player.transform;
         }else
         {

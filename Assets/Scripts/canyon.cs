@@ -10,12 +10,15 @@ public class canyon : MonoBehaviour
     private Animator Animator;
     private float LastShoot;
     AudioSource myAudioSource;
+    Level level;
     [SerializeField] AudioClip fireSound;
     [SerializeField] AudioClip destruct;
 
     // Start is called before the first frame update
     void Start()
     {
+        level = FindObjectOfType<Level>();
+        level.countEnemies();
 
         myAudioSource = GetComponent<AudioSource>();
         Animator = GetComponent<Animator>();
@@ -61,6 +64,7 @@ public class canyon : MonoBehaviour
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
+        Debug.Log("Hpta");
         if (collision.gameObject.CompareTag("laser"))
         {
             banner = false;
@@ -72,9 +76,9 @@ public class canyon : MonoBehaviour
     IEnumerator destroy()
     {
         Animator.SetBool("destroyed", true);
-        
         yield return new WaitForSeconds(1);
-        Destroy(gameObject);
+        level.winLevel();
+        Destroy(this.gameObject);
 
     }
    
