@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class Megaman : MonoBehaviour
 {
@@ -171,11 +172,14 @@ public class Megaman : MonoBehaviour
     IEnumerator die()
     {
         pause = true;
-        myBody.isKinematic=true;
+        myBody.isKinematic = true;
         myAnimator.SetBool("dead", true);
         myAudioSource.PlayOneShot(deadSound);
         yield return new WaitForSeconds(1);
         Instantiate(vfxDead, transform.position, transform.rotation);
         Destroy(this.gameObject);
+        Debug.Log("Despues");
+        
     }
+    
 }
