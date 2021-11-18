@@ -158,3 +158,5 @@ MonoBehaviour:
   banner: 1
   bulletpref: {fileID: 660610784050001589, guid: 4a7b60c360215aa4ebf9d3039586b958, type: 3}
   player: {fileID: 5282402585993001541, guid: 923d76e59df674d4da969aae5333ab1f, type: 3}
+  fireSound: {fileID: 8300000, guid: 8fe5e1ba54e74bf429782498a5e8dc6d, type: 3}
+  destruct: {fileID: 8300000, guid: 40a70a2bf48dda34a954c5c6c7366f6f, type: 3}

@@ -9,13 +9,15 @@ public class canyon : MonoBehaviour
     public GameObject player;
     private Animator Animator;
     private float LastShoot;
+    AudioSource myAudioSource;
+    [SerializeField] AudioClip fireSound;
+    [SerializeField] AudioClip destruct;
 
-    
     // Start is called before the first frame update
     void Start()
     {
 
-        
+        myAudioSource = GetComponent<AudioSource>();
         Animator = GetComponent<Animator>();
         
     }
@@ -52,6 +54,7 @@ public class canyon : MonoBehaviour
             GameObject bullet = Instantiate(bulletpref, transform.position + direction * 3f, Quaternion.identity);
             bullet.GetComponent<bullet>().setDirection(direction);
             Debug.Log("Shoot");
+            myAudioSource.PlayOneShot(fireSound);
         }
 
     }
@@ -62,6 +65,7 @@ public class canyon : MonoBehaviour
         {
             banner = false;
             StartCoroutine("destroy");
+            myAudioSource.PlayOneShot(destruct);
         }
       
     }
