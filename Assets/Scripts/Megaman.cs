@@ -179,6 +179,10 @@ public class Megaman : MonoBehaviour
         {
             StartCoroutine("die");
         }
+        if (collision.gameObject.CompareTag("Bullet"))
+        {
+            StartCoroutine("die");
+        }
     }
     IEnumerator die()
     {
@@ -208,4 +212,5 @@ public class Megaman : MonoBehaviour
             dashCooldown = 2;
         }
     }
+  
 }
