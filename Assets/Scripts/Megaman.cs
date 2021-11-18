@@ -27,6 +27,14 @@ public class Megaman : MonoBehaviour
     [SerializeField] AudioClip fireSound;
 
     bool pause;
+
+
+    public float dashCooldown=0;
+
+    [SerializeField] float dashForce = 10;
+
+    public GameObject dashParticle;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -43,12 +51,14 @@ public class Megaman : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+
         if (!pause)
         {
             move();
             jump();
             falling();
             fire();
+            Dash();
         }
         
     }
@@ -79,6 +89,7 @@ public class Megaman : MonoBehaviour
         {
             myAnimator.SetBool("running", false);
         }
+        
     }
 
     void jump()
@@ -181,5 +192,20 @@ public class Megaman : MonoBehaviour
         Debug.Log("Despues");
         
     }
-    
+    public void Dash()
+    {
+        dashCooldown -= Time.deltaTime;
+        if (Input.GetKey(KeyCode.E) && dashCooldown <= 0)
+        {
+            if (sLeft && !sRight)
+            {
+                myBody.AddForce(Vector2.left * dashForce, ForceMode2D.Impulse);
+            }
+            else if (sRight && !sLeft)
+            {
+                myBody.AddForce(Vector2.right * dashForce, ForceMode2D.Impulse);
+            }
+            dashCooldown = 2;
+        }
+    }
 }
